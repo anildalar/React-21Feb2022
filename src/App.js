@@ -6,6 +6,7 @@ import Error404 from './pages/Error404'; //RFC
 import Register from './pages/Register'; //RCC
 import Login from './pages/Login'; //RFC
 import GetStudent from './pages/GetStudent';
+import EditStudent from './pages/EditStudent';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
             <Route path="/" element={ <Login /> } />
             <Route path="/login" element={ <Login /> } />
             <Route path="/register" element={ <Register />  } />
-            <Route path="/get_student/:stu_id/:id" element={ <GetStudent /> } />
+            <Route path="/get_students" element={ <GetStudent /> } />
+            <Route path="/edit_student/:stu_id" element={ <EditStudent /> } />
             <Route path="*" element={ <Error404 /> } />
         </Routes>
     </Router>

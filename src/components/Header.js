@@ -19,7 +19,7 @@ export default function Header() {
                 <Link to="/register">Register</Link>
             </Nav.Item>
             <Nav.Item>
-                <Link to="/get_student/1/10">Get Students</Link>
+                <Link to="/get_students">Get Students</Link>
             </Nav.Item>
         </Nav>
     </div>
