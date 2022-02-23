@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
+import Layout from '../components/Layout';
+
 const config = require('../config.json');
 
 //RFC
@@ -11,10 +15,13 @@ export default function EditStudent() {
                 name:''
             }
         }
-      });//Empty Array
+    });//Empty Array
+    const [isLoading,setIsLoading] = useState(false);
+    const [isSubmitted,setIsSubmitted] = useState('');
 
     let params = useParams();
 
+    //Call the api after the page render
     useEffect(()=>{
         console.log('Page Loaded Succeffully');
         getStudent(params.stu_id);
@@ -61,7 +68,7 @@ export default function EditStudent() {
         }
     }
 
-    let handleChange = (e)=>{
+    let handleChange = (e)=>{ //ES6 Fat Arrow functions
            console.log('hello',e.target.value);
 
            setStudent({
@@ -75,26 +82,72 @@ export default function EditStudent() {
            });
 
     }
+
     let submitStudent = (e)=>{
         e.preventDefault();
+
+        setIsLoading(true);
+        setIsSubmitted('disabled');
+
         console.log('submitted');
+
+        ///api/friends/:id
+        let data = {  //JSON Javascript Object Notation
+            "data": {
+              "name": student.data.attributes.name
+            }
+        };
+
+        // With the help of fetch api i have to make PUT Request
+        fetch(`${config.base_url}/api/friends/`+params.stu_id,{
+            method:"PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then((data)=>{
+            //let make data json readable
+            return data.json();
+        }).then((data)=>{
+            console.log(data);
+            setIsLoading(false);
+            setIsSubmitted('');
+            swal("Good job!", "Friend Updated Successfully", "success");
+        
+        
+        }).catch((err)=>{
+            console.log(err);
+        });
     }
     //3. Return statement JSX
     return (
         <>
-            <div>EditStudent {params.stu_id}</div>
+            <Layout>
+                {
+                    isLoading &&
+                    
+                    <div className="d-flex justify-content-center">
+                        <Spinner animation="grow" />
+                    </div>
+                }
+                
+
+                <div>EditStudent {params.stu_id}</div>
+                
+                <form onSubmit={(e)=>{ submitStudent(e) }}>
+                    <label>Enter your name:
+                    <input 
+                        type="text" 
+                        name="friend_name" 
+                        value={ student.data.attributes.name }
+                        onChange={ (e)=>{ handleChange(e) } }
+                    />
+                    </label>
+                    <input type="submit" class={`btn btn-primary ${isSubmitted} `}/>
+                </form>
+            </Layout>
             
-            <form onSubmit={(e)=>{ submitStudent(e) }}>
-                <label>Enter your name:
-                <input 
-                    type="text" 
-                    name="friend_name" 
-                    value={ student.data.attributes.name }
-                    onChange={ (e)=>{ handleChange(e) } }
-                />
-                </label>
-                <input type="submit" />
-            </form>
         </>
         
     )
