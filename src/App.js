@@ -7,12 +7,13 @@ import Register from './pages/Register'; //RCC
 import Login from './pages/Login'; //RFC
 import GetStudent from './pages/GetStudent';
 import EditStudent from './pages/EditStudent';
+import A from './pages/A';
 
 function App() {
   return (
     <Router>
         <Routes>
-            <Route path="/" element={ <Login /> } />
+            <Route path="/" element={ <A /> } />
             <Route path="/login" element={ <Login /> } />
             <Route path="/register" element={ <Register />  } />
             <Route path="/get_students" element={ <GetStudent /> } />
