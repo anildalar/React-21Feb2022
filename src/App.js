@@ -8,12 +8,13 @@ import Login from './pages/Login'; //RFC
 import GetStudent from './pages/GetStudent';
 import EditStudent from './pages/EditStudent';
 import A from './pages/A';
+import Component1 from './Component1';
 
 function App() {
   return (
     <Router>
         <Routes>
-            <Route path="/" element={ <A /> } />
+            <Route path="/" element={ <Component1 /> } />
             <Route path="/login" element={ <Login /> } />
             <Route path="/register" element={ <Register />  } />
             <Route path="/get_students" element={ <GetStudent /> } />
