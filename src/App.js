@@ -10,12 +10,14 @@ import EditStudent from './pages/EditStudent';
 import A from './pages/A';
 import Component1 from './Component1';
 import UseRef from './UseRef';
+import MyComponent from './MyComponent';
+import MyComponent2 from './MyComponent2';
 
 function App() {
   return (
     <Router>
         <Routes>
-            <Route path="/" element={ <UseRef /> } />
+            <Route path="/" element={ <MyComponent2 /> } />
             <Route path="/login" element={ <Login /> } />
             <Route path="/register" element={ <Register />  } />
             <Route path="/get_students" element={ <GetStudent /> } />
